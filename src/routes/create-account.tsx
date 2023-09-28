@@ -58,6 +58,7 @@ export default function CreateAccount() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       // set name
       // redirect to the home page
@@ -66,12 +67,12 @@ export default function CreateAccount() {
     } finally {
       setLoading(false);
     }
-    console.log(name, email, password);
   };
 
   return (
     <Wrapper>
       <Title>Log into ✖</Title>
+
       <Form onSubmit={onSubmit}>
         <Input
           onChange={onChange}
