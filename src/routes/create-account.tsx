@@ -1,5 +1,10 @@
+import {
+  createUserWithEmailAndPassword,
+  reauthenticateWithCredential,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { styled } from "styled-components";
+import { auth } from "../firebase";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -56,12 +61,11 @@ export default function CreateAccount() {
     }
   };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (isLoading || name === "" || email === "" || password === "") return;
     try {
-      // set name
-      // redirect to the home page
+      await createUserWithEmailAndPassword(auth, email, password);
     } catch (e) {
       // setError
     } finally {
@@ -71,7 +75,7 @@ export default function CreateAccount() {
 
   return (
     <Wrapper>
-      <Title>Log into ✖</Title>
+      <Title>Join ✖</Title>
 
       <Form onSubmit={onSubmit}>
         <Input
