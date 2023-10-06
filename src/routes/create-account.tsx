@@ -1,10 +1,12 @@
 import {
   createUserWithEmailAndPassword,
   reauthenticateWithCredential,
+  updateProfile,
 } from "firebase/auth";
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -42,6 +44,8 @@ const Input = styled.input`
 `;
 
 export default function CreateAccount() {
+  const navigate = useNavigate();
+
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,7 +69,14 @@ export default function CreateAccount() {
     e.preventDefault();
     if (isLoading || name === "" || email === "" || password === "") return;
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const credentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(credentials.user);
+      await updateProfile(credentials.user, { displayName: name });
+      navigate("/");
     } catch (e) {
       // setError
     } finally {
