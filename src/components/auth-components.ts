@@ -24,12 +24,15 @@ export const Form = styled.form`
 
 export const Input = styled.input`
   padding: 10px 20px;
+  box-sizing: border-box;
   border-radius: 50px;
   border: none;
   width: 100%;
   font-size: 16px;
   &[type="submit"] {
     cursor: pointer;
+    background-color: #1d9bf0;
+    color: white;
     &:hover {
       opacity: 0.8;
     }
