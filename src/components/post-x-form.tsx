@@ -69,8 +69,13 @@ export default function PostXForm() {
       setFile(files[0]);
     }
   };
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isLoading || tweet === "" || tweet.length > 180) return;
+  };
+
   return (
-    <Form>
+    <Form onSubmit={onSubmit}>
       <TextArea
         rows={5}
         maxLength={180}
